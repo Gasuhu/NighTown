@@ -4,7 +4,6 @@ import './background.css';
 import {BrowserRouter} from 'react-router-dom'
 import { socket } from './socket';
 import Rout from './component/rout';
-
 import {Events} from './component/Events'
 import { ConnectionState } from './component/ConnectionState';
 import { ConnectionManager } from './component/ConnectionManager';
