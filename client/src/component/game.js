@@ -1,20 +1,27 @@
-import React from "react";
+import React , { useState, useEffect } from "react";
 import "./game.css"
 import {MdSunny} from 'react-icons/md';
 import {BsMoonFill} from 'react-icons/bs'
 import {IoIosArrowDropright} from 'react-icons/io'
+import { socket } from '../socket';
+
+import { io } from 'socket.io-client';
+function sendMessage(message)
+{
+  socket.emit('chat message', message);
+}
 
 const submitButton=()=>
 {
-    if( document.getElementsByTagName('input')[0].value!="")
+    let message=document.getElementsByTagName('input')[0].value
+    if( message !=="")
     {
-        var newDiv = document.createElement('div');
-        newDiv.textContent=document.getElementsByTagName('input')[0].value
-        newDiv.className="chat-message user-message"
-        let chatbox=document.getElementsByClassName("chat-container")[0]
-        chatbox.appendChild(newDiv)
-        chatbox.scroll({top: 2000, behavior: "smooth" })
+
+        
+        sendMessage(message)
         document.getElementsByTagName('input')[0].value=""
+  
+       
     }
 }
 function inKeyDownSubmit(event)
@@ -27,6 +34,23 @@ if (event.key === 'Enter') {
 
 const Game = () =>
 {
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        let socket1=io("http://localhost:3001/")
+        socket1.on('chat message', (message) => {
+
+          setMessages((prevMessages) => [...prevMessages, message]);
+          
+          setTimeout(() => {
+            let chatbox=document.getElementsByClassName("chat-container")[0]
+            chatbox.scroll({top: chatbox.scrollHeight, behavior: "smooth" })
+          }, 100);          
+        });
+        return () => {
+            socket1.disconnect(); // Disconnect the socket when the component unmounts
+          };
+    },[]);
     return (
         <>    
     <div class="day-night">
@@ -38,7 +62,7 @@ const Game = () =>
             </div>
         </div>
 
-    <div class="chat-container">
+    <div class="chat-container" >
         <div class="chat-message user-message">
         Salut, comment ça va ?
         </div>
@@ -75,10 +99,18 @@ const Game = () =>
         <div class="chat-message bot-message">
         Bien sûr ! Quel genre de films préférez-vous ?
         </div>
+        {
+        messages.map((message, index) => (
+            <div class="chat-message user-message"> saad : {message}</div>
+          ))
+          
+          }
     </div>
 
-    <div class="input-message" onKeyDown={inKeyDownSubmit}>
-        <input type="text" placeholder="Type here"></input>
+
+    
+    <div class="input-message">
+        <input type="text" placeholder="Type here"  onKeyDown={inKeyDownSubmit}></input>
         <button type="submit" onClick={submitButton}> <p> <IoIosArrowDropright/></p> </button>
 
     </div>

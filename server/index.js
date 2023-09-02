@@ -1,10 +1,12 @@
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
-
+const cors = require('cors')
 const app = express();
 const server = http.createServer(app);
-const io = socketIO(server);
+const io = socketIO(server, {cors: {
+    origin: "http://localhost:3000"
+  }});
 
 // Serve the HTML file
 app.get('/', (req, res) => {
@@ -15,8 +17,10 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
   console.log('A user connected');
 
+
   // Handle chat messages
   socket.on('chat message', (message) => {
+    console.log(message)
     io.emit('chat message', message); // Broadcast the message to all connected clients
   });
 
