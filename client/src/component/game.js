@@ -37,7 +37,7 @@ const Game = () =>
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        let socket1=io("http://localhost:3001/")
+        let socket1=io("https://server2-ap0s.onrender.com")
         socket1.on('chat message', (message) => {
 
           setMessages((prevMessages) => [...prevMessages, message]);
