@@ -3,10 +3,36 @@ const http = require('http');
 const socketIO = require('socket.io');
 const cors = require('cors')
 const app = express();
+const passportSetup=require("./passport")
+const cookieSession= require("cookie-session")
+const passport = require("passport");
+const authRoute=require("./routes/auth")
+const { triggerAsyncId } = require('async_hooks');
+
+app.use(cookieSession(
+  {
+    name:"session",
+    keys:["nighTown"],
+    maxAge:3*24*60*60*100,
+  }
+))
+
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(cors({
+  origin:"https://nightown.netlify.app/",
+  methodes:"GET,POST,PUT,DELETE",
+  credentials:true,
+}))
+
+app.use("/auth",authRoute)
 const server = http.createServer(app);
+
+
 const io = socketIO(server, {cors: {
     origin: "*"
   }});
+
 
 // Serve the HTML file
 app.get('/', (req, res) => {

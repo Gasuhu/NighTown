@@ -32,7 +32,7 @@ if (event.key === 'Enter') {
 }
 }
 
-const Game = () =>
+const Game = ({user}) =>
 {
     const [messages, setMessages] = useState([]);
 
@@ -53,55 +53,55 @@ const Game = () =>
     },[]);
     return (
         <>    
-    <div class="day-night">
-            <div class="day">
-                <div class="activate timer"><MdSunny/>0:45</div>
+    <div className="day-night">
+            <div className="day">
+                <div className="activate timer"><MdSunny/>0:45</div>
             </div>
-            <div class="night">
-                <div class="desactivate timer"><BsMoonFill/>its not night</div>
+            <div className="night">
+                <div className="desactivate timer"><BsMoonFill/>its not night</div>
             </div>
         </div>
 
-    <div class="chat-container" >
-        <div class="chat-message user-message">
+    <div className="chat-container" >
+        <div className="chat-message user-message">
         Salut, comment ça va ?
         </div>
-        <div class="chat-message bot-message">
+        <div className="chat-message bot-message">
         Bonjour ! Je suis un chatbot.
         </div>
-        <div class="chat-message user-message">
+        <div className="chat-message user-message">
         Pouvez-vous me donner des recommandations de films ?
         </div>
-        <div class="chat-message bot-message">
+        <div className="chat-message bot-message">
         Bien sûr ! Quel genre de films préférez-vous ?
         </div>
-        <div class="chat-message user-message">
+        <div className="chat-message user-message">
         Salut, comment ça va ?
         </div>
-        <div class="chat-message bot-message">
+        <div className="chat-message bot-message">
         Bonjour ! Je suis un chatbot.
         </div>
-        <div class="chat-message user-message">
+        <div className="chat-message user-message">
         Pouvez-vous me donner des recommandations de films ?
         </div>
-        <div class="chat-message bot-message">
+        <div className="chat-message bot-message">
         Bien sûr ! Quel genre de films préférez-vous ?
         </div>
-        <div class="chat-message user-message">
+        <div className="chat-message user-message">
         Salut, comment ça va ?
         </div>
-        <div class="chat-message bot-message">
+        <div className="chat-message bot-message">
         Bonjour ! Je suis un chatbot.
         </div>
-        <div class="chat-message user-message">
+        <div className="chat-message user-message">
         Pouvez-vous me donner des recommandations de films ?
         </div>
-        <div class="chat-message bot-message">
+        <div className="chat-message bot-message">
         Bien sûr ! Quel genre de films préférez-vous ?
         </div>
         {
         messages.map((message, index) => (
-            <div class="chat-message user-message"> saad : {message}</div>
+            <div key={index} className="chat-message user-message"> {user.displayName} : {message}</div>
           ))
           
           }
@@ -109,7 +109,7 @@ const Game = () =>
 
 
     
-    <div class="input-message">
+    <div className="input-message">
         <input type="text" placeholder="Type here"  onKeyDown={inKeyDownSubmit}></input>
         <button type="submit" onClick={submitButton}> <p> <IoIosArrowDropright/></p> </button>
 

@@ -5,9 +5,10 @@ import {BrowserRouter} from 'react-router-dom'
 import { socket } from './socket';
 import Rout from './component/rout';
 import {Events} from './component/Events'
-import { ConnectionState } from './component/ConnectionState';
+import Nav from './component/nav';
+
 import { ConnectionManager } from './component/ConnectionManager';
-import { MyForm } from './component/MyForm';
+
 
 
 
@@ -42,18 +43,17 @@ function App() {
     };
   }, []);
   return (
-    
+   
     <BrowserRouter>
-    <ConnectionState isConnected={ isConnected } />
-    <Events events={ fooEvents } />
     <ConnectionManager />
     <Rout/>
     <div className="video-background">
-    <video autoPlay loop muted className="video">
+    <video autoPlay muted className="video">
       <source src={videoSource} type="video/mp4" />
       Your browser does not support the video tag.
     </video>
     {/* Other content can be added on top of the video */}
+    
   </div>
 
   </BrowserRouter>
