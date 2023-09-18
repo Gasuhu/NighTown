@@ -1,7 +1,7 @@
 const router =require("express").Router()
 const passport=require("passport")
 
-const CLIENT_URL="https://nightown.onrender.com/"
+const CLIENT_URL="https://nightown.onrender.com"
 
 
 router.get("/login/success",(req,res)=>
