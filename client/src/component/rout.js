@@ -11,7 +11,7 @@ const Rout = () =>
     useEffect(()=>
     {
         const getUser=async ()=>{
-            fetch("http://localhost:3001/auth/login/success",{
+            fetch("https://server2-ap0s.onrender.com/auth/login/success",{
                 methode:"GET",
                 credentials:"include",
                 hraders:{
