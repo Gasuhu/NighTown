@@ -36,7 +36,7 @@ const Rout = () =>
         <Nav user={user}/>
         <Routes>    
             <Route path="/" element={<Overview/>}/>
-            <Route path="/game" element={user!=null ? <Game user={user}/> : <Login />}/>
+            <Route path="/game" element={<Game user={user}/> }/>
             <Route path="/post/:id"element={<Post/>}/>
             <Route path="/login"element={user ? <Navigate to="/"/> : <Login />}/>
         </Routes>

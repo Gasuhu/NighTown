@@ -3,7 +3,7 @@ const Login =()=>
 {
     const google=()=>
     {
-        window.open("https://server2-ap0s.onrender.com/auth/google","_self")
+        window.open("http://localhost:3001/auth/google","_self")
     }
     return (
         
