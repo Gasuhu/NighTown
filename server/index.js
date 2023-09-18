@@ -20,7 +20,7 @@ app.use(cookieSession(
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(cors({
-  origin:"https://nightown.netlify.app/",
+  origin:"https://nightown.onrender.com/",
   methodes:"GET,POST,PUT,DELETE",
   credentials:true,
 }))
