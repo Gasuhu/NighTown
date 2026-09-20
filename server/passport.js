@@ -2,8 +2,12 @@ const passport = require('passport');
 
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-const GOOGLE_CLIENT_ID="725876137721-2shg2eo340bb2cd2ep0bdnt56rguv78c.apps.googleusercontent.com"
-const GOOGLE_CLIENT_SECRET="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"
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+
+if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
+  throw new Error("Missing GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET environment variable");
+}
 
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,

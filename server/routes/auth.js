@@ -5,15 +5,19 @@ const CLIENT_URL="https://nightown.onrender.com"
 
 
 router.get("/login/success",(req,res)=>
-{   
+{
     if(req.user){
-    res.status(200).json({
-        success:true,
-        message:"successfull",
-        user: req.user,
-
-        })}
-    
+        res.status(200).json({
+            success:true,
+            message:"successfull",
+            user: req.user,
+        })
+    } else {
+        res.status(401).json({
+            success:false,
+            message:"not authenticated",
+        })
+    }
 })
 
 router.get("/login/failed",(req,res)=>
