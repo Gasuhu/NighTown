@@ -1,3 +1,11 @@
+try {
+  if (typeof process.loadEnvFile === "function") {
+    process.loadEnvFile();
+  }
+} catch {
+  // no .env file present (e.g. in production, where env vars are set by the host)
+}
+
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
@@ -7,13 +15,16 @@ const passportSetup=require("./passport")
 const cookieSession= require("cookie-session")
 const passport = require("passport");
 const authRoute=require("./routes/auth")
-const { triggerAsyncId } = require('async_hooks');
+
+if (!process.env.SESSION_SECRET) {
+  throw new Error("Missing SESSION_SECRET environment variable");
+}
 
 app.use(cookieSession(
   {
     name:"session",
-    keys:["nighTown"],
-    maxAge:3*24*60*60*100,
+    keys:[process.env.SESSION_SECRET],
+    maxAge:3*24*60*60*1000,
   }
 ))
 
@@ -21,7 +32,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(cors({
   origin:"https://nightown.onrender.com",
-  methodes:"GET,POST,PUT,DELETE",
+  methods:"GET,POST,PUT,DELETE",
   credentials:true,
 }))
 
